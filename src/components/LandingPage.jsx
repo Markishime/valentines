@@ -18,7 +18,7 @@ export const LandingPage = () => {
           I have something special for you...
         </p>
         <button
-          onClick={() => navigate('/valentine')}
+          onClick={() => navigate('/love-language-game')}
           className="bg-rose-500 hover:bg-rose-600 text-white text-xl md:text-2xl px-8 py-4 rounded-full transform transition-all duration-300 hover:scale-105 shadow-lg"
         >
           Open Your Valentine 💝

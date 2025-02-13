@@ -40,7 +40,7 @@ export const ConfirmationPage = () => {
         <div className="space-y-4 text-xl md:text-2xl text-rose-700">
           <p>Thank you for saying Yes BABYYY!</p>
           <p>You've filled my heart with joy 💝</p>
-          <p>Looking forward to our datee tomorroww!! I LOVE YOUUU!! 💑</p>
+          <p>Looking forward to our date tomorrow!!! I LOVE YOUUU!!! 💑</p>
         </div>
         <img 
           src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExYnN0ajEyOTUwems2cG4wYzcwdWM2NndlbXZ6NG0wazRhbWltNGNrYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/FDbIUZLwbCUS4786z3/giphy.gif"
