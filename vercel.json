@@ -4,5 +4,11 @@
       "source": "/(.*)",
       "destination": "/index.html"
     }
+  ],
+  "routes": [
+    {
+      "src": "/(images|sounds)/(.*)",
+      "dest": "/public/$1/$2"
+    }
   ]
 }

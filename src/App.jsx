@@ -1,12 +1,12 @@
 import { useState, useCallback, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { Howl } from 'howler';
-import lovesvg from "./assets/All You Need Is Love SVG Cut File.svg";
-import lovesvg2 from "./assets/Love In The Air SVG Cut File.svg";
+import lovesvg from "/assets/images/All You Need Is Love SVG Cut File.svg";
+import lovesvg2 from "/assets/images/Love In The Air SVG Cut File.svg";
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { FloatingHearts } from './components/FloatingHearts';
-import clickSound from './assets/sounds/Ily.mp3';
+import clickSound from '/assets/images/sounds/Ily.mp3';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import { LandingPage } from './components/LandingPage';
 import { MusicPlayer } from './components/MusicPlayer';
@@ -118,43 +118,43 @@ function Page() {
             <div>
               <img
                 className="h-64 md:h-96 object-cover rounded-xl"
-                src="src/assets/7.jpeg"
+                src="/assets/images/7.jpeg"
               />
             </div>
             <div>
               <img
                 className="h-64 md:h-96 object-cover rounded-xl"
-                src="src/assets/9.jpeg"
+                src="/assets/images/9.jpeg"
               />
             </div>
             <div>
               <img
                 className="h-64 md:h-96 object-cover rounded-xl"
-                src="src/assets/10.jpeg"
+                src="/assets/images/10.jpeg"
               />
             </div>
             <div>
               <img
                 className="h-64 md:h-96 object-cover rounded-xl"
-                src="src/assets/4.jpeg"
+                src="/assets/images/4.jpeg"
               />
             </div>
             <div>
               <img
                 className="h-64 md:h-96 object-cover rounded-xl"
-                src="src/assets/5.jpeg"
+                src="/assets/images/5.jpeg" 
               />
             </div>
             <div>
               <img
                 className="h-64 md:h-96 object-cover rounded-xl"
-                src="src/assets/6.jpeg"
+                src="/assets/images/6.jpeg"
               />
             </div>
             <div>
               <img
                 className="h-64 md:h-96 object-cover rounded-xl"
-                src="src/assets/8.jpeg"
+                src="/assets/images/8.jpeg"
               />
             </div>
           </Carousel>

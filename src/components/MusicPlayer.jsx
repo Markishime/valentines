@@ -11,7 +11,7 @@ export const MusicPlayer = () => {
       try {
         if (!soundRef.current) {
           soundRef.current = new Howl({
-            src: ['src/assets/sounds/Valentine.mp3'], // Proper public path
+            src: ['/assets//images/sounds/Valentine.mp3'], // Proper public path
             loop: true,
             volume: 0.5,
             html5: true,

@@ -7,8 +7,8 @@ export const LandingPage = () => {
     <div className="h-screen flex flex-col items-center justify-center bg-gradient-to-r from-pink-200 via-red-200 to-yellow-200 animate-gradient">
       <div className="text-center space-y-8 animate-fade-in">
         <img
-          src="src/assets/love.jpg"
-          alt="Welcome"
+          src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExN2djcnI1aHptZnNyOHdzMHBxbTQ1bnVjN2Rremxta2thZXF1bW95bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/KztT2c4u8mYYUiMKdJ/giphy.gif"
+          alt="I love you!"
           className="mx-auto rounded-lg shadow-xl mb-8 h-64 md:h-96 object-cover"
         />
         <h1 className="text-5xl md:text-7xl font-bold text-rose-600 mb-8">
