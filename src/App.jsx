@@ -84,11 +84,19 @@ const images = [
 
 export default function App() {
   const [isMusicPlaying, setIsMusicPlaying] = useState(true);
+  const musicStartedRef = useRef(false);
 
-  // Autoplay background music on mount/refresh
+  // Autoplay background music on mount/refresh - only once
   useEffect(() => {
-    sounds.background.play();
-    sounds.background.fade(0, 0.3, 800);
+    if (!musicStartedRef.current) {
+      // Check if already playing (from previous navigation)
+      if (!sounds.background.playing()) {
+        sounds.background.play();
+        sounds.background.fade(0, 0.3, 800);
+      }
+      musicStartedRef.current = true;
+      setIsMusicPlaying(sounds.background.playing());
+    }
   }, []);
 
   return (
@@ -109,7 +117,10 @@ export default function App() {
               sounds.background.fade(0.3, 0, 800);
               setTimeout(() => sounds.background.pause(), 800);
             } else {
-              sounds.background.play();
+              // Only play if not already playing
+              if (!sounds.background.playing()) {
+                sounds.background.play();
+              }
               sounds.background.fade(0, 0.3, 800);
             }
             setIsMusicPlaying(!isMusicPlaying);
