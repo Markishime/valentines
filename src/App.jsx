@@ -6,232 +6,120 @@ import lovesvg2 from "/assets/images/Love In The Air SVG Cut File.svg";
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { FloatingHearts } from './components/FloatingHearts';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { LandingPage } from './components/LandingPage';
 import { ConfirmationPage } from './components/ConfirmationPage';
 import { LoveLanguageGame } from './components/LoveLanguageGame';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // Sound effects with enhanced volume control
+// All mapped to the titled track in the sounds folder
+// Explicitly disabled autoplay - sounds only play on user interaction
 const sounds = {
-  click: new Howl({ src: ['/assets/images/sounds/click.mp3'], volume: 0.5 }),
-  hover: new Howl({ src: ['/assets/images/sounds/hover.mp3'], volume: 0.3 }),
-  success: new Howl({ src: ['/assets/images/sounds/success.mp3'], volume: 0.5 }),
-  no: new Howl({ src: ['/assets/images/sounds/no.mp3'], volume: 0.4 }),
-  heartbeat: new Howl({ src: ['/assets/images/sounds/heartbeat.mp3'], volume: 0.3, loop: true }),
-  sparkle: new Howl({ src: ['/assets/images/sounds/sparkle.mp3'], volume: 0.2 }),
+  click: new Howl({ src: ['/assets/images/sounds/I Wanna Grow Old With You - Westlife.mp3'], volume: 0.5, autoplay: false }),
+  hover: new Howl({ src: ['/assets/images/sounds/I Wanna Grow Old With You - Westlife.mp3'], volume: 0.25, autoplay: false }),
+  success: new Howl({ src: ['/assets/images/sounds/I Wanna Grow Old With You - Westlife.mp3'], volume: 0.6, autoplay: false }),
+  no: new Howl({ src: ['/assets/images/sounds/I Wanna Grow Old With You - Westlife.mp3'], volume: 0.3, autoplay: false }),
+  heartbeat: new Howl({ src: ['/assets/images/sounds/I Wanna Grow Old With You - Westlife.mp3'], volume: 0.2, loop: true, autoplay: false }),
+  sparkle: new Howl({ src: ['/assets/images/sounds/I Wanna Grow Old With You - Westlife.mp3'], volume: 0.35, autoplay: false }),
   background: new Howl({ 
-    src: ['/assets/images/sounds/Valentine.mp3'], 
+    src: ['/assets/images/sounds/I Wanna Grow Old With You - Westlife.mp3'], 
     volume: 0.5, 
-    loop: true 
+    loop: true,
+    autoplay: false
   })
 };
 
 const messages = [
-  "Are you sure?",
-  "Really sure?",
-  "Think again!",
-  "Last chance!",
-  "Surely not?",
-  "You might regret this!",
-  "Give it another thought!",
-  "Are you absolutely certain?",
-  "This could be a mistake!",
-  "Have a heart!",
-  "Don't be so cold!",
-  "Change of heart?",
-  "Wouldn't you reconsider?",
-  "Is that your final answer?",
-  "You're breaking my heart ;(",
-  "I'll be so sad...",
-  "Maybe think about it?",
-  "You'll miss out on something special!",
-  "But we're perfect together!",
-  "Just give it a chance!"
+  "Wait, 2026 needs us together.",
+  "Are you really saying no to SM Seaside?",
+  "Think of Fantasy World before you click that.",
+  "Last chance to lock in our 2026 love day.",
+  "Babyyy, don\u2019t break our Cebu plan.",
+  "Future us is screaming: say yes.",
+  "What if this is the best day of 2026?",
+  "My heart already reserved this date for you.",
+  "Plot twist: you actually wanted to say yes.",
+  "Imagine the arcade tickets we could win together.",
+  "Have a heart, it\u2019s Valentine\u2019s 2026.",
+  "You can\u2019t outrun love (or this button).",
+  "Our SM Seaside story deserves a yes.",
+  "Tiny website, huge feelings. Try again.",
+  "You\u2019re my favorite notification, don\u2019t ghost this.",
+  "I upgraded everything for 2026, including us.",
+  "Close your eyes, think of Cebu, now click yes.",
+  "This date is better than any scroll on your feed.",
+  "We look so good in 2026 together.",
+  "One yes and the whole plan comes to life."
 ];
 
 const loveQuotes = [
-  "Every time I see you, I fall in love all over again.",
-  "You're the missing piece to my puzzle.",
-  "My heart beats only for you.",
-  "You make every day special.",
-  "You're my favorite notification.",
-  "Life is better with you in it.",
-  "You're the first thought in my morning and the last thought at night.",
-  "Your smile brightens up my darkest days.",
-  "With you, every moment feels magical.",
-  "You're not just my valentine, you're my everything.",
-  "Together is my favorite place to be.",
-  "You had me at hello.",
-  "I love you more than yesterday, less than tomorrow.",
-  "You're the reason I believe in love.",
-  "My heart is wherever you are."
+  "In 2026 and every year after, it\u2019s still you.",
+  "My favorite place isn\u2019t SM Seaside, it\u2019s next to you.",
+  "Every version of my future has you in it.",
+  "Your laugh is my favorite sound of this decade.",
+  "Love in 2026 still feels like day one with you.",
+  "I don\u2019t need a filter when I\u2019m with you.",
+  "From morning notifications to midnight talks, it\u2019s always you.",
+  "You turn ordinary mall days into core memories.",
+  "No matter the year, my heart keeps choosing you.",
+  "If 2026 had a highlight reel, it would just be us.",
+  "Hand in hand, we make everywhere feel like home.",
+  "I\u2019d pick you in every timeline, every lifetime.",
+  "Your smile is my favorite view, even in a city of lights.",
+  "You are my soft place in a loud world.",
+  "My heart has a permanent reservation under your name."
 ];
 
 const images = [
-  '/assets/images/7.jpeg',
-  '/assets/images/9.jpeg',
-  '/assets/images/10.jpeg',
-  '/assets/images/4.jpeg',
-  '/assets/images/5.jpeg',
-  '/assets/images/6.jpeg',
-  '/assets/images/8.jpeg'
+  '/assets/images/1.jpg',
+  '/assets/images/2.jpg',
+  '/assets/images/3.jpg',
+  '/assets/images/4.jpg',
+  '/assets/images/5.jpg',
+  '/assets/images/6.jpg',
+  '/assets/images/7.jpg',
+  '/assets/images/8.jpg',
+  '/assets/images/9.jpg'
 ];
 
 export default function App() {
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [loadingProgress, setLoadingProgress] = useState(0);
-  const [assetsLoaded, setAssetsLoaded] = useState(0);
-  const totalAssets = images.length + Object.keys(sounds).length;
-
-  // Enhanced Asset Loading
-  useEffect(() => {
-    let mounted = true;
-    
-    const loadAssets = async () => {
-      try {
-        // Load images
-        const imagePromises = images.map(src => {
-          return new Promise((resolve, reject) => {
-            const img = new Image();
-            img.onload = () => {
-              if (mounted) {
-                setAssetsLoaded(prev => prev + 1);
-              }
-              resolve();
-            };
-            img.onerror = () => {
-              console.warn(`Failed to load image: ${src}`);
-              resolve(); // Still resolve to continue loading
-            };
-            img.src = src;
-          });
-        });
-
-        // Load sounds
-        const soundPromises = Object.values(sounds).map(sound => {
-          return new Promise((resolve) => {
-            if (sound.state() === 'loaded') {
-              if (mounted) {
-                setAssetsLoaded(prev => prev + 1);
-              }
-              resolve();
-            } else {
-              sound.once('load', () => {
-                if (mounted) {
-                  setAssetsLoaded(prev => prev + 1);
-                }
-                resolve();
-              });
-              sound.once('loaderror', () => {
-                console.warn('Sound failed to load');
-                resolve(); // Still resolve to continue loading
-              });
-            }
-          });
-        });
-
-        await Promise.all([...imagePromises, ...soundPromises]);
-        
-        if (mounted) {
-          // Small delay to ensure smooth transition
-          setTimeout(() => {
-            setIsLoading(false);
-          }, 500);
-        }
-      } catch (error) {
-        console.error('Asset loading failed:', error);
-        if (mounted) {
-          setIsLoading(false);
-        }
-      }
-    };
-
-    loadAssets();
-    
-    return () => {
-      mounted = false;
-    };
-  }, []);
-
-  // Update loading progress
-  useEffect(() => {
-    setLoadingProgress((assetsLoaded / totalAssets) * 100);
-  }, [assetsLoaded, totalAssets]);
-
-  // Enhanced Loading Screen
-  const LoadingScreen = () => (
-    <div className="fixed inset-0 bg-gradient-to-r from-pink-200 via-red-200 to-yellow-200 flex items-center justify-center z-50">
-      <div className="text-center space-y-6 p-8 bg-white/30 backdrop-blur-md rounded-2xl">
-        <div className="relative">
-          <div className="animate-pulse text-8xl">❤️</div>
-          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 animate-ping text-8xl opacity-50">
-            ❤️
-          </div>
-        </div>
-        <h2 className="text-3xl font-bold text-rose-600">Loading Love...</h2>
-        <div className="w-64 h-3 bg-white/50 rounded-full overflow-hidden">
-          <div 
-            className="h-full bg-rose-500 transition-all duration-300 rounded-full"
-            style={{ width: `${loadingProgress}%` }}
-          />
-        </div>
-        <p className="text-rose-700 font-medium">{Math.round(loadingProgress)}%</p>
-      </div>
-    </div>
-  );
-
-  if (isLoading) {
-    return <LoadingScreen />;
-  }
 
   return (
     <Router>
-      <div className="relative min-h-screen">
+      <div className="relative min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-rose-100">
         <FloatingHearts />
-        
-        {/* Background Music Toggle with enhanced UI */}
+
+        {/* Soft global frame */}
+        <div className="pointer-events-none fixed inset-4 border border-white/60 rounded-3xl z-0 opacity-60" />
+
+        {/* Background Music Toggle */}
         <motion.button 
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={() => {
             sounds.click.play();
             if (isMusicPlaying) {
-              sounds.background.fade(0.3, 0, 1000);
-              setTimeout(() => sounds.background.pause(), 1000);
+              sounds.background.fade(0.3, 0, 800);
+              setTimeout(() => sounds.background.pause(), 800);
             } else {
               sounds.background.play();
-              sounds.background.fade(0, 0.3, 1000);
+              sounds.background.fade(0, 0.3, 800);
             }
             setIsMusicPlaying(!isMusicPlaying);
           }}
-          className="fixed bottom-4 left-4 z-50 bg-white/50 p-3 rounded-full hover:bg-white/70 transition-all shadow-lg backdrop-blur-sm"
+          className="fixed bottom-5 left-5 z-50 bg-white/80 px-4 py-2 rounded-full shadow-lg shadow-rose-200/70 border border-white/80 flex items-center gap-2 text-xs md:text-sm text-rose-600"
         >
-          <span className="text-2xl">
+          <span className="text-base md:text-lg">
             {isMusicPlaying ? '🎵' : '🔇'}
+          </span>
+          <span className="hidden sm:inline">
+            {isMusicPlaying ? 'Pause our Valentine song' : 'Play our Valentine song'}
           </span>
         </motion.button>
 
-        {/* Theme Toggle */}
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          className="fixed bottom-4 left-20 z-50 bg-white/50 p-3 rounded-full hover:bg-white/70 transition-all shadow-lg backdrop-blur-sm"
-        >
-          <span className="text-2xl">🌙</span>
-        </motion.button>
-
-        {/* Social Share */}
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          className="fixed bottom-4 left-36 z-50 bg-white/50 p-3 rounded-full hover:bg-white/70 transition-all shadow-lg backdrop-blur-sm"
-        >
-          <span className="text-2xl">💌</span>
-        </motion.button>
-
-        <AnimatePresence>
+        <AnimatePresence mode="wait">
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/love-language-game" element={<LoveLanguageGame />} />
@@ -240,21 +128,21 @@ export default function App() {
           </Routes>
         </AnimatePresence>
 
-        {/* Decorative Elements */}
-        <div className="fixed top-4 right-4 z-10 opacity-50">
+        {/* Corner decoration */}
+        <div className="fixed top-5 right-5 z-10 opacity-70">
           <motion.img
             animate={{ 
-              rotate: [0, 10, -10, 0],
-              scale: [1, 1.1, 1]
+              rotate: [0, 6, -6, 0],
+              scale: [1, 1.05, 1]
             }}
             transition={{ 
-              duration: 5,
+              duration: 6,
               repeat: Infinity,
               repeatType: "reverse"
             }}
             src={lovesvg}
             alt="Love Decoration"
-            className="w-16 h-16"
+            className="w-14 h-14 md:w-16 md:h-16 drop-shadow-md"
           />
         </div>
       </div>
@@ -264,11 +152,11 @@ export default function App() {
 
 const Page = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [noCount, setNoCount] = useState(0);
   const [yesPressed, setYesPressed] = useState(false);
   const [showHearts, setShowHearts] = useState(false);
   const [buttonSize, setButtonSize] = useState(16);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
   const [currentQuote, setCurrentQuote] = useState(0);
   const [showSparkles, setShowSparkles] = useState(false);
   const [shake, setShake] = useState(false);
@@ -277,7 +165,9 @@ const Page = () => {
   const [deviceType, setDeviceType] = useState('desktop');
   const [currentImage, setCurrentImage] = useState(0);
 
-  const yesButtonSize = buttonSize + Math.min(noCount * 20, 200);
+  const moodWishes = location.state?.moodTagsSelected || [];
+
+  const yesButtonSize = buttonSize + Math.min(noCount * 30, 300);
 
   // Device Type Detection
   useEffect(() => {
@@ -299,7 +189,7 @@ const Page = () => {
   // Mouse Trail Effect
   useEffect(() => {
     heartbeatRef.current = sounds.heartbeat;
-    sounds.heartbeat.play();
+    // Removed auto-play - heartbeat only plays when user interacts
 
     const handleMouseMove = (e) => {
       setMouseTrails(prev => [
@@ -375,15 +265,11 @@ const Page = () => {
   const handleNoClick = () => {
     sounds.no.play();
     setNoCount(noCount + 1);
-    setButtonSize(buttonSize + Math.min(noCount * 5, 50));
+    setButtonSize(buttonSize + Math.min(noCount * 8, 80));
     setShowHearts(true);
     setShake(true);
     
     setTimeout(() => setShake(false), 500);
-    
-    const newX = Math.random() * (window.innerWidth - 200);
-    const newY = Math.random() * (window.innerHeight - 100);
-    setPosition({ x: newX, y: newY });
 
     const newRate = Math.min(1 + noCount * 0.1, 2);
     sounds.heartbeat.rate(newRate);
@@ -397,7 +283,7 @@ const Page = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-pink-200 via-red-200 to-yellow-200 animate-gradient overflow-hidden p-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-rose-100 via-pink-50 to-rose-200 animate-gradient overflow-hidden p-4">
       <AnimatePresence>
         {showHearts && <FloatingHearts />}
         
@@ -435,7 +321,7 @@ const Page = () => {
         ))}
       </AnimatePresence>
 
-      <div className="text-center space-y-8 relative w-full max-w-4xl mx-auto">
+      <div className="text-center space-y-10 relative w-full max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -461,26 +347,102 @@ const Page = () => {
               exit={{ opacity: 0 }}
               key={currentImage}
             >
-              <img 
-                src={images[currentImage]}
-                alt={`Love Memory ${currentImage + 1}`}
-                className="h-64 md:h-96 object-cover rounded-xl w-full shadow-2xl"
-              />
+              <div className="h-64 md:h-96 rounded-3xl w-full shadow-2xl border border-white/70 bg-white flex items-center justify-center overflow-hidden">
+                <img 
+                  src={images[currentImage]}
+                  alt={`Love Memory ${currentImage + 1}`}
+                  className="max-h-full max-w-full object-contain"
+                />
+              </div>
             </motion.div>
           </motion.div>
         </div>
+
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="text-sm md:text-lg text-rose-600 px-6 max-w-2xl mx-auto"
+        >
+          Hi babyyy, before we lock in our SM Seaside Cebu 2026 adventure, I have one simple
+          question for you.
+        </motion.p>
 
         <motion.h1
           animate={shake ? {
             x: [-10, 10, -10, 10, 0],
             transition: { duration: 0.5 }
           } : {}}
-          className="text-4xl md:text-7xl font-bold text-rose-600 drop-shadow-lg px-4"
+          className="text-3xl md:text-6xl font-bold text-rose-600 drop-shadow-lg px-4"
         >
-          Will you be my Valentine?
+          Spend Valentine&apos;s 2026 at SM Seaside Cebu with me?
         </motion.h1>
 
-        <div className="flex flex-col md:flex-row items-center justify-center gap-4 mt-8 px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15, duration: 0.6 }}
+          className="max-w-4xl mx-auto px-4"
+        >
+          <div className="bg-white/80 backdrop-blur-xl rounded-3xl border border-white/70 shadow-xl shadow-rose-200/80 p-6 md:p-8 text-left space-y-4">
+            <div className="flex flex-wrap items-center gap-3 text-xs md:text-sm text-rose-500">
+              <span className="px-3 py-1 rounded-full bg-rose-50 border border-rose-100 font-medium">
+                Valentine&apos;s Day • February 14, 2026
+              </span>
+              <span className="px-3 py-1 rounded-full bg-rose-50 border border-rose-100 font-medium">
+                SM Seaside City Cebu
+              </span>
+              <span className="px-3 py-1 rounded-full bg-rose-50 border border-rose-100 font-medium">
+                Simple • Playful • Romantic
+              </span>
+            </div>
+
+            <p className="text-rose-700 text-sm md:text-base">
+              I want our 2026 Valentine to feel light and happy — just you and me, holding hands,
+              laughing, and making soft little memories.
+            </p>
+
+            <div className="grid md:grid-cols-2 gap-4 text-sm md:text-base text-rose-700">
+              <div className="space-y-2">
+                <p className="font-semibold text-rose-600">What we&apos;ll do together</p>
+                <ul className="list-disc list-inside space-y-1 text-rose-600/90">
+                  <li>Play in the <span className="font-semibold">Fantasy World</span> at SM Seaside Cebu.</li>
+                  <li>Get competitive (in a cute way) at the <span className="font-semibold">arcade</span>.</li>
+                  <li>Try <span className="font-semibold">archery</span> side by side like modern Cupids.</li>
+                  <li>End with a <span className="font-semibold">romantic dinner</span>.</li>
+                </ul>
+              </div>
+              <div className="space-y-2">
+                <p className="font-semibold text-rose-600">How I imagine it</p>
+                <p className="text-rose-600/90">
+                  Warm lights, your laugh echoing over the games, our fingers intertwined while we walk,
+                  and a quiet dinner to end the night where I can look at you and say, again and again,
+                  how much I love you.
+                </p>
+              </div>
+            </div>
+
+            {moodWishes.length > 0 && (
+              <div className="pt-4 border-t border-rose-100 space-y-2">
+                <p className="text-xs md:text-sm font-semibold text-rose-600">
+                  Little 2026 wishes you picked:
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {moodWishes.map((wish) => (
+                    <span
+                      key={wish}
+                      className="px-3 py-1 rounded-full bg-rose-50 text-rose-700 text-xs md:text-sm border border-rose-200"
+                    >
+                      {wish}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </motion.div>
+
+        <div className="flex flex-col md:flex-row items-center justify-center gap-4 mt-10 px-4">
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
@@ -493,7 +455,7 @@ const Page = () => {
             `}
             style={{
               fontSize: deviceType === 'mobile' ? '24px' : `${yesButtonSize}px`,
-              padding: `${Math.max(16, yesButtonSize/4)}px`,
+              padding: `${Math.max(16, yesButtonSize/4)}px ${Math.max(24, yesButtonSize/2)}px`,
               animation: showSparkles ? 'sparkle 1s ease infinite' : 'none'
             }}
             onClick={handleYesClick}
@@ -503,26 +465,16 @@ const Page = () => {
           </motion.button>
 
           <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             className={`
               bg-rose-500 hover:bg-rose-600 text-white text-lg px-8 py-4 rounded-lg
-              transition-all transform absolute
+              transition-all transform
               ${shake ? 'animate-shake' : ''}
               ${deviceType === 'mobile' ? 'text-xl' : ''}
             `}
-            style={{
-              left: position.x,
-              top: position.y,
-              transition: 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)'
-            }}
             onClick={handleNoClick}
-            onMouseEnter={() => {
-              sounds.hover.play();
-              const newX = Math.random() * (window.innerWidth - 200);
-              const newY = Math.random() * (window.innerHeight - 100);
-              setPosition({ x: newX, y: newY });
-            }}
+            onMouseEnter={() => sounds.hover.play()}
           >
             {messages[Math.min(noCount, messages.length - 1)]} 😢
           </motion.button>
