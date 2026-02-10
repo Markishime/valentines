@@ -8,7 +8,7 @@ export const ConfirmationPage = () => {
               Valentine&apos;s Day • 2026
             </p>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-rose-600 leading-tight">
-              You said yes — now let&apos;s make SM Seaside Cebu our little fantasy world. 💖
+              You said yes — now let&apos;s make SM Seaside Cebu our Venue for our 2026 Valentine date. 💖
             </h1>
 
             <p className="text-base md:text-lg text-rose-700">
@@ -67,7 +67,7 @@ export const ConfirmationPage = () => {
                   <div>
                     <p className="font-semibold">Fantasy World at SM Seaside</p>
                     <p className="text-rose-500">
-                      We start by stepping into our own little fantasy world — lights, colors,
+                      We start by stepping into SM Seaside fantasy world — lights, colors,
                       photos, and us acting like kids again.
                     </p>
                   </div>
@@ -101,7 +101,7 @@ export const ConfirmationPage = () => {
                     4
                   </span>
                   <div>
-                    <p className="font-semibold">Romantic dinner by the sea</p>
+                    <p className="font-semibold">Romantic dinner</p>
                     <p className="text-rose-500">
                       We end the night with a simple, romantic dinner — soft lights, good
                       food, and your hand in mine while we look out over Cebu.
