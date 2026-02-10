@@ -1,5 +1,4 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
-import confetti from 'canvas-confetti';
 import { Howl } from 'howler';
 import lovesvg from "/assets/images/All You Need Is Love SVG Cut File.svg";
 import lovesvg2 from "/assets/images/Love In The Air SVG Cut File.svg";
@@ -229,43 +228,15 @@ const Page = () => {
     return () => clearInterval(imageInterval);
   }, []);
 
-  // Celebration Effects
-  const createFirework = () => {
-    const colors = ['#ff0000', '#ff69b4', '#ff1493', '#ff007f', '#ffb6c1'];
-    const fireworkCount = 5;
-    
-    for (let i = 0; i < fireworkCount; i++) {
-      setTimeout(() => {
-        const originX = 0.2 + Math.random() * 0.6;
-        confetti({
-          particleCount: 150,
-          spread: 70,
-          origin: { x: originX, y: 0.6 },
-          colors,
-          shapes: ['circle', 'square', 'heart'],
-          scalar: 2,
-          ticks: 100,
-          gravity: 0.8,
-          decay: 0.94,
-          startVelocity: 30
-        });
-      }, i * 300);
-    }
-  };
-
   // Button Handlers
   const handleYesClick = () => {
     setYesPressed(true);
     sounds.success.play();
     setShowSparkles(true);
     
-    const effectsInterval = setInterval(createFirework, 800);
-    
     setTimeout(() => {
       navigate('/confirmed');
     }, 3500);
-
-    return () => clearInterval(effectsInterval);
   };
 
   const handleNoClick = () => {
