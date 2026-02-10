@@ -11,22 +11,13 @@ import { ConfirmationPage } from './components/ConfirmationPage';
 import { LoveLanguageGame } from './components/LoveLanguageGame';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// Sound effects with enhanced volume control
-// All mapped to the titled track in the sounds folder
-// Explicitly disabled autoplay - sounds only play on user interaction
+// Short sound effects (no background music)
 const sounds = {
-  click: new Howl({ src: ['/assets/images/sounds/I Wanna Grow Old With You - Westlife.mp3'], volume: 0.5, autoplay: false }),
-  hover: new Howl({ src: ['/assets/images/sounds/I Wanna Grow Old With You - Westlife.mp3'], volume: 0.25, autoplay: false }),
-  success: new Howl({ src: ['/assets/images/sounds/I Wanna Grow Old With You - Westlife.mp3'], volume: 0.6, autoplay: false }),
-  no: new Howl({ src: ['/assets/images/sounds/I Wanna Grow Old With You - Westlife.mp3'], volume: 0.3, autoplay: false }),
-  heartbeat: new Howl({ src: ['/assets/images/sounds/I Wanna Grow Old With You - Westlife.mp3'], volume: 0.2, loop: true, autoplay: false }),
-  sparkle: new Howl({ src: ['/assets/images/sounds/I Wanna Grow Old With You - Westlife.mp3'], volume: 0.35, autoplay: false }),
-  background: new Howl({ 
-    src: ['/assets/images/sounds/I Wanna Grow Old With You - Westlife.mp3'], 
-    volume: 0.5, 
-    loop: true,
-    autoplay: false
-  })
+  click: new Howl({ src: ['/assets/images/sounds/I Wanna Grow Old With You - Westlife.mp3'], volume: 0.5 }),
+  hover: new Howl({ src: ['/assets/images/sounds/I Wanna Grow Old With You - Westlife.mp3'], volume: 0.25 }),
+  success: new Howl({ src: ['/assets/images/sounds/I Wanna Grow Old With You - Westlife.mp3'], volume: 0.6 }),
+  no: new Howl({ src: ['/assets/images/sounds/I Wanna Grow Old With You - Westlife.mp3'], volume: 0.3 }),
+  sparkle: new Howl({ src: ['/assets/images/sounds/I Wanna Grow Old With You - Westlife.mp3'], volume: 0.35 })
 };
 
 const messages = [
@@ -83,22 +74,6 @@ const images = [
 ];
 
 export default function App() {
-  const [isMusicPlaying, setIsMusicPlaying] = useState(true);
-  const musicStartedRef = useRef(false);
-
-  // Autoplay background music on mount/refresh - only once
-  useEffect(() => {
-    if (!musicStartedRef.current) {
-      // Check if already playing (from previous navigation)
-      if (!sounds.background.playing()) {
-        sounds.background.play();
-        sounds.background.fade(0, 0.3, 800);
-      }
-      musicStartedRef.current = true;
-      setIsMusicPlaying(sounds.background.playing());
-    }
-  }, []);
-
   return (
     <Router>
       <div className="relative min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-rose-100">
@@ -106,34 +81,6 @@ export default function App() {
 
         {/* Soft global frame */}
         <div className="pointer-events-none fixed inset-4 border border-white/60 rounded-3xl z-0 opacity-60" />
-
-        {/* Background Music Toggle */}
-        <motion.button 
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => {
-            sounds.click.play();
-            if (isMusicPlaying) {
-              sounds.background.fade(0.3, 0, 800);
-              setTimeout(() => sounds.background.pause(), 800);
-            } else {
-              // Only play if not already playing
-              if (!sounds.background.playing()) {
-                sounds.background.play();
-              }
-              sounds.background.fade(0, 0.3, 800);
-            }
-            setIsMusicPlaying(!isMusicPlaying);
-          }}
-          className="fixed bottom-5 left-5 z-50 bg-white/80 px-4 py-2 rounded-full shadow-lg shadow-rose-200/70 border border-white/80 flex items-center gap-2 text-xs md:text-sm text-rose-600"
-        >
-          <span className="text-base md:text-lg">
-            {isMusicPlaying ? '🎵' : '🔇'}
-          </span>
-          <span className="hidden sm:inline">
-            {isMusicPlaying ? 'Pause our Valentine song' : 'Play our Valentine song'}
-          </span>
-        </motion.button>
 
         <AnimatePresence mode="wait">
           <Routes>
@@ -176,7 +123,6 @@ const Page = () => {
   const [currentQuote, setCurrentQuote] = useState(0);
   const [showSparkles, setShowSparkles] = useState(false);
   const [shake, setShake] = useState(false);
-  const heartbeatRef = useRef(null);
   const [mouseTrails, setMouseTrails] = useState([]);
   const [deviceType, setDeviceType] = useState('desktop');
   const [currentImage, setCurrentImage] = useState(0);
@@ -204,9 +150,6 @@ const Page = () => {
 
   // Mouse Trail Effect
   useEffect(() => {
-    heartbeatRef.current = sounds.heartbeat;
-    // Removed auto-play - heartbeat only plays when user interacts
-
     const handleMouseMove = (e) => {
       setMouseTrails(prev => [
         { x: e.clientX, y: e.clientY, id: Date.now() },
@@ -216,7 +159,6 @@ const Page = () => {
 
     window.addEventListener('mousemove', handleMouseMove);
     return () => {
-      sounds.heartbeat.stop();
       window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
@@ -258,9 +200,6 @@ const Page = () => {
     setShake(true);
     
     setTimeout(() => setShake(false), 500);
-
-    const newRate = Math.min(1 + noCount * 0.1, 2);
-    sounds.heartbeat.rate(newRate);
   };
 
   const handleYesHover = () => {
