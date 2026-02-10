@@ -84,7 +84,13 @@ const images = [
 ];
 
 export default function App() {
-  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  const [isMusicPlaying, setIsMusicPlaying] = useState(true);
+
+  // Autoplay background music on mount/refresh
+  useEffect(() => {
+    sounds.background.play();
+    sounds.background.fade(0, 0.3, 800);
+  }, []);
 
   return (
     <Router>
